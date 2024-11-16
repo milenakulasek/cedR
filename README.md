@@ -1,14 +1,14 @@
 # cedR
 
-**cedR** — an R package for those who approach data with a healthy dose of scepticism and critical thinking. You can pronounce it like *cedar* (the tree) or *cheddar* (the cheese), but what I really meant was *Cogito Ergo Dubito* (*I think therefore I doubt*), a reference to Descartes' *Cogito Ergo Sum* (*I think, therefore I am.*)
+**cedR** — you can pronounce it like *cedar* (the tree) or *cheddar* (the cheese), but what I really meant was *Cogito Ergo Dubito* (*I think therefore I doubt*), a reference to Descartes' *Cogito Ergo Sum* (*I think, therefore I am.*)
 
-In science, the path to truth is never straightforward. It’s a long and bumpy road where certainty is often elusive. As scientists, we must remain vigilant, questioning our hypotheses and rigorously testing them, because only through doubt can we uncover clearer insights. **cedR** embodies this scientific spirit by helping you rigorously analyse your data, question the assumptions, and deliver results you can trust.
+The centuries-long consensus of philosophy? We don't know what true truth is — or how to recognize it if we stumble upon it. cedR leans into this spirit of uncertainty, helping you analyze your data with just enough doubt to keep things honest.
 
-**Yeah, yeah, yeah, sure!**
+Yeah, yeah, yeah, sure!
 
-Deflating this balloon of philosophical thought, propelled by the autumn darkness and cold…
+Deflating this balloon of philosophical thought and moving to practical details interesting for screen-gazers…
 
-This package is for those who want to perform a **quick one-way statistical multicomparison test** without thinking too much about which test to use. You can automate it, as there are predefined rules. So, just prepare your data in a long format, roll it into the function, and *voilà!* A quick answer will appear, along with an ugly graph and files with summary data and a statistics report.
+This package is for anyone looking to perform a **quick one-way statistical multicomparison** test without agonizing over which test to use. So, just prepare your data in a long format, roll it into the function, and *voilà!* A quick answer will appear, along with an ugly graph and files with summary data and a statistics report.
 
 ------------------------------------------------------------------------
 
