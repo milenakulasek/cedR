@@ -26,6 +26,7 @@
 #' @importFrom utils capture.output write.table
 #' @importFrom dplyr arrange desc %>%
 #' @importFrom rlang sym
+#' @importFrom plotrix se
 #' @export
 
 
@@ -44,7 +45,7 @@ cedR <- function(df, dependent_var, factor_var, df_file_name, logFile) {
   data_summary <- function(data, varname, groupnames) {
     summary_func <- function(x, col) {
       c(mean = mean(x[[col]], na.rm = TRUE),
-        se = sd(x[[col]], na.rm = TRUE) / sqrt(sum(!is.na(x[[col]]))),
+        se = se(x[[col]], na.rm = TRUE),
         sd = sd(x[[col]], na.rm = TRUE))
     }
     data_sum <- ddply(data, groupnames, .fun = summary_func, varname)
@@ -97,7 +98,7 @@ cedR <- function(df, dependent_var, factor_var, df_file_name, logFile) {
     names(Diff) <- Names
     cld <- multcompLetters(Diff)
 
-    cld_df <- data.frame(factor_var = names(cld$Letters), cld_letters = cld$Letters, stringsAsFactors = FALSE)
+    cld_df <- data.frame(factor_var = names(cld$Letters), cld_let = cld$Letters, stringsAsFactors = FALSE)
 
     cat("Kruskal-Wallis Test:\n", file = logFile, append = TRUE)
     cat(capture.output(test), file = logFile, append = TRUE, sep = "\n")
@@ -111,7 +112,7 @@ cedR <- function(df, dependent_var, factor_var, df_file_name, logFile) {
     Tukey <- TukeyHSD(res.aov2)
 
     cld <- multcompLetters4(res.aov2, Tukey)
-    cld_df <- data.frame(factor_var = names(cld[[factor_var]]$Letters), cld_letters = cld[[factor_var]]$Letters, stringsAsFactors = FALSE)
+    cld_df <- data.frame(factor_var = names(cld[[factor_var]]$Letters), cld_let = cld[[factor_var]]$Letters, stringsAsFactors = FALSE)
 
     cat("ANOVA Test:\n", file = logFile, append = TRUE)
     cat(capture.output(res.aov2), file = logFile, append = TRUE, sep = "\n")
@@ -132,7 +133,7 @@ cedR <- function(df, dependent_var, factor_var, df_file_name, logFile) {
     geom_errorbar(aes(ymin = !!sym(dependent_var) -se,
                       ymax = !!sym(dependent_var) +se),
                   width = 0.2, position = position_dodge(0.9)) +
-    geom_text(aes(label = cld_letters,
+    geom_text(aes(label = cld_let,
                   y = !!sym(dependent_var) +se),
               position = position_dodge(0.9)) +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))

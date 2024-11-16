@@ -33,17 +33,3 @@ on the specified dependent variable, grouped by the factor variable.
 It outputs a bar plot with standard error bars and compact letter displays (CLD)
 indicating statistical significance.
 }
-\examples{
-# Example dataset
-data <- data.frame(
-  value = rnorm(100),
-  group = rep(c("A", "B", "C", "D"), each = 25)
-)
-result <- cedR(data, "value", "group", "output.csv", "log.txt")
-
-# Access the summarized data frame
-print(result$summary_df)
-
-# Visualize the plot
-print(result$plot)
-}
