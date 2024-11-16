@@ -1,4 +1,18 @@
-
+#' Perform One-Way Statistical Analysis and Plotting
+#'
+#' This function performs statistical analysis and creates a plot.
+#' @param df A data frame containing the data to analyze in a long format.
+#' @param dependent_var Written in "", the name of the dependent variable as a string.
+#' @param factor_var Written in "", the name of the factor variable as a string.
+#' @param df_file_name Written in "", a string specifying the output file name.
+#' @param logFile Written in "", a string specifying the log file name.
+#' @return A list containing the summary data frame and the plot object.
+#' @importFrom plyr ddply
+#' @importFrom car leveneTest
+#' @importFrom FSA dunnTest
+#' @importFrom multcompView multcompLetters
+#' @importFrom ggplot2 ggplot aes geom_bar geom_errorbar geom_text theme
+#' @export
 
 cedR <- function(df, dependent_var, factor_var, df_file_name, logFile) {
 
