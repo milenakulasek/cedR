@@ -1,18 +1,47 @@
 #' Perform One-Way Statistical Analysis and Plotting
 #'
-#' This function performs statistical analysis and creates a plot.
-#' @param df A data frame containing the data to analyze in a long format.
-#' @param dependent_var Written in "", the name of the dependent variable as a string.
+#' This function performs one-way ANOVA or Kruskal-Wallis tests
+#' (depending on whether the data meet normality and variance assumptions)
+#' on the specified dependent variable, grouped by the factor variable.
+#' It outputs a bar plot with standard error bars and compact letter displays (CLD)
+#' indicating statistical significance.
+#' @param df A data frame in a long format with columns for dependent and factor variables.
+#' @param dependent_var Written in "", the name of the dependent variable (as a string)must be numeric).
 #' @param factor_var Written in "", the name of the factor variable as a string.
-#' @param df_file_name Written in "", a string specifying the output file name.
-#' @param logFile Written in "", a string specifying the log file name.
-#' @return A list containing the summary data frame and the plot object.
+#' @param df_file_name Written in "", a string specifying the output file name for a summary data frame; preferably .csv or .txt.
+#' @param logFile Written in "", a string specifying the output file name with statistics report; in .txt format.
+#' @return A list with the following components:
+#' \describe{
+#'   \item{summary_df}{A data frame summarizing the analysis, including cld letters.}
+#'   \item{plot}{A ggplot2 object representing the plotted dependent_var vs factor_var.}
+#'   \item{summary_df file}{A file containing summary_df}
+#'   \item{file with stat report}{A file containing a report from the performed statistical analyses.}
+#' }
 #' @importFrom plyr ddply
 #' @importFrom car leveneTest
 #' @importFrom FSA dunnTest
-#' @importFrom multcompView multcompLetters
-#' @importFrom ggplot2 ggplot aes geom_bar geom_errorbar geom_text theme
+#' @importFrom multcompView multcompLetters multcompLetters4
+#' @importFrom ggplot2 ggplot aes geom_bar geom_errorbar geom_text theme position_dodge element_text
+#' @importFrom stats TukeyHSD aov as.formula bartlett.test kruskal.test lm na.omit sd shapiro.test
+#' @importFrom utils capture.output write.table
+#' @importFrom dplyr arrange desc %>%
+#' @importFrom rlang sym
 #' @export
+#' @examples
+#' # Example dataset
+#' data <- data.frame(
+#'   value = rnorm(100),
+#'   group = rep(c("A", "B", "C", "D"), each = 25)
+#' )
+#' result <- cedR(data, "value", "group", "output.csv", "log.txt")
+#'
+#' # Access the summarized data frame
+#' print(result$summary_df)
+#'
+#' # Visualize the plot
+#' print(result$plot)
+
+
 
 cedR <- function(df, dependent_var, factor_var, df_file_name, logFile) {
 
