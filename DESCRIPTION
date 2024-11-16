@@ -14,5 +14,4 @@ Imports:
     car,
     ggplot2,
     FSA,
-    multcompView,
-    dplyr
+    multcompView
