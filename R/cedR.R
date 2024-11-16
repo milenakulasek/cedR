@@ -27,19 +27,6 @@
 #' @importFrom dplyr arrange desc %>%
 #' @importFrom rlang sym
 #' @export
-#' @examples
-#' # Example dataset
-#' data <- data.frame(
-#'   value = rnorm(100),
-#'   group = rep(c("A", "B", "C", "D"), each = 25)
-#' )
-#' result <- cedR(data, "value", "group", "output.csv", "log.txt")
-#'
-#' # Access the summarized data frame
-#' print(result$summary_df)
-#'
-#' # Visualize the plot
-#' print(result$plot)
 
 
 
