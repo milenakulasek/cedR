@@ -25,15 +25,19 @@ This package is for those who want to perform a **quick one-way statistical mult
 
 You can install **cedR** from GitHub with the following command:
 
-\`\`\`r devtools::install_github("milenakulasek/cedR")
-
+```r
+devtools::install_github("milenakulasek/cedR")
+```
 ------------------------------------------------------------------------
 
 ## Usage
 
 To use **cedR**, simply call the function with your data and specify the necessary arguments. Here's how you can use it:
 
-\`\`\`r \# Example usage of cedR cedR(data, "Variable_of_Interest", "Grouping_Factor", "output_summary.csv", "output_report.txt")
+```r
+# Example usage of cedR
+cedR(data, "Variable_of_Interest", "Grouping_Factor", "output_summary.csv", "output_report.txt")
+```
 
 Where:
 
