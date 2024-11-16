@@ -2,7 +2,6 @@ require(plyr)
 library(car)
 library(FSA)
 library(multcompView)
-library(dplyr)
 library(ggplot2)
 
 
