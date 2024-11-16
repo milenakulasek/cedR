@@ -33,13 +33,15 @@
 cedR <- function(df, dependent_var, factor_var, df_file_name, logFile) {
 
   # Define 'se' and 'cldl' as local variables
-  se <- function(x) { sd(x) / sqrt(length(x)) }
+  se <- function(x) {
+    sd(x, na.rm = TRUE) / sqrt(length(x))
+  }
   cldl <- NULL  # Initialize cldl to avoid the global variable note
 
   data_summary <- function(data, varname, groupnames) {
     summary_func <- function(x, col) {
       c(mean = mean(x[[col]], na.rm = TRUE),
-        se = se(x[[col]], na.rm = TRUE),
+        se = se(x[[col]]),
         sd = sd(x[[col]], na.rm = TRUE))
     }
     data_sum <- ddply(data, groupnames, .fun = summary_func, varname)
