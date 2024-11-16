@@ -5,7 +5,7 @@ Authors@R:
     person("Milena", "Kulasek", , "milena.kulasek@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-4509-6777"))
 Description: This package performs one-way multiple comparison tests, using ANOVA with Tukey's HSD or Kruskal-Wallis with Dunn's test, depending on whether the data meet the necessary assumptions.
-License: MIT + file LICENSE
+License: use_mit_license()
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
