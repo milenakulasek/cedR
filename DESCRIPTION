@@ -1,12 +1,11 @@
 Package: cedR
-Title: What the Package Does (One Line, Title Case)
+Title: A Package for One-Way Multiple Comparisons
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    person("Milena", "Kulasek", , "milena.kulasek@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-4509-6777"))
+Description: This package performs one-way multiple comparison tests, using ANOVA with Tukey's HSD or Kruskal-Wallis with Dunn's test, depending on whether the data meet the necessary assumptions.
+License: `use_mit_license()`
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
