@@ -7,19 +7,43 @@
 cedR(df, dependent_var, factor_var, df_file_name, logFile)
 }
 \arguments{
-\item{df}{A data frame containing the data to analyze in a long format.}
+\item{df}{A data frame in a long format with columns for dependent and factor variables.}
 
-\item{dependent_var}{Written in "", the name of the dependent variable as a string.}
+\item{dependent_var}{Written in "", the name of the dependent variable (as a string)must be numeric).}
 
 \item{factor_var}{Written in "", the name of the factor variable as a string.}
 
-\item{df_file_name}{Written in "", a string specifying the output file name.}
+\item{df_file_name}{Written in "", a string specifying the output file name for a summary data frame; preferably .csv or .txt.}
 
-\item{logFile}{Written in "", a string specifying the log file name.}
+\item{logFile}{Written in "", a string specifying the output file name with statistics report; in .txt format.}
 }
 \value{
-A list containing the summary data frame and the plot object.
+A list with the following components:
+\describe{
+\item{summary_df}{A data frame summarizing the analysis, including cld letters.}
+\item{plot}{A ggplot2 object representing the plotted dependent_var vs factor_var.}
+\item{summary_df file}{A file containing summary_df}
+\item{file with stat report}{A file containing a report from the performed statistical analyses.}
+}
 }
 \description{
-This function performs statistical analysis and creates a plot.
+This function performs one-way ANOVA or Kruskal-Wallis tests
+(depending on whether the data meet normality and variance assumptions)
+on the specified dependent variable, grouped by the factor variable.
+It outputs a bar plot with standard error bars and compact letter displays (CLD)
+indicating statistical significance.
+}
+\examples{
+# Example dataset
+data <- data.frame(
+  value = rnorm(100),
+  group = rep(c("A", "B", "C", "D"), each = 25)
+)
+result <- cedR(data, "value", "group", "output.csv", "log.txt")
+
+# Access the summarized data frame
+print(result$summary_df)
+
+# Visualize the plot
+print(result$plot)
 }
