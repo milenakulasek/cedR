@@ -1,6 +1,6 @@
 # cedR
 
-**cedR** — you can pronounce it like *cedar* (the tree) or *cheddar* (the cheese), but what I really meant was *Cogito Ergo Dubito* (*I think therefore I doubt*), a reference to Descartes' *Cogito Ergo Sum* (*I think, therefore I am.*)
+**cedR** — you can pronounce it like *cedar* (the tree) or *cheddar* (the cheese), but what I really meant was *Cogito Ergo Dubito* (*I think therefore I doubt*), a reference to Descartes' *Cogito Ergo Sum* (*I think, therefore I am*).
 
 The centuries-long consensus of philosophy? We don't know what true truth is — or how to recognize it if we stumble upon it. cedR leans into this spirit of uncertainty, helping you analyze your data with just enough doubt to keep things honest.
 
@@ -16,7 +16,7 @@ This package is for anyone looking to perform a **quick one-way statistical mult
 
 -   **Automated multiple comparison tests**: No need to stress about which test to use.
 -   **Quick output**: Get your results into a .csv file with just one line of code.
--   **Convenient reports**: Generate summary statistics and output files in a jiffy.
+-   **Convenient reports**: Generate summary statistics and output files.
 -   **Bar graphs** with standard error bars and CLD letters for clear visual representation.
 
 ------------------------------------------------------------------------
