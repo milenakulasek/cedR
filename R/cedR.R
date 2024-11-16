@@ -20,7 +20,7 @@
 #' @importFrom plyr ddply
 #' @importFrom car leveneTest
 #' @importFrom FSA dunnTest
-#' @importFrom multcompView multcompLetters multcompLetters4
+#' @importFrom multcompView multcompLetters multcompLetters4 cld_letters
 #' @importFrom ggplot2 ggplot aes geom_bar geom_errorbar geom_text theme position_dodge element_text
 #' @importFrom stats TukeyHSD aov as.formula bartlett.test kruskal.test lm na.omit sd shapiro.test
 #' @importFrom utils capture.output write.table
