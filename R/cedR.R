@@ -32,33 +32,9 @@
 
 cedR <- function(df, dependent_var, factor_var, df_file_name, logFile) {
 
-
-  if (!dependent_var %in% colnames(df)) {
-    stop(paste("Dependent variable", dependent_var, "does not exist in the data frame."))
-  }
-  if (!factor_var %in% colnames(df)) {
-    stop(paste("Factor variable", factor_var, "does not exist in the data frame."))
-  }
-
-  se <- function(x) {
-    sd(x) / sqrt(length(x))
-  }
-
-  data_summary <- function(data, varname, groupnames) {
-    summary_func <- function(x, col) {
-      c(mean = mean(x[[col]], na.rm = TRUE),
-        se = se(x[[col]], na.rm = TRUE),
-        sd = sd(x[[col]], na.rm = TRUE))
-    }
-    data_sum <- ddply(data, groupnames, .fun = summary_func, varname)
-    colnames(data_sum)[colnames(data_sum) == "mean"] <- varname  # Ensure renaming only if "mean" exists
-    return(data_sum)
-  }
-
-
-
-
-
+  # Define 'se' and 'cldl' as local variables
+  se <- function(x) { sd(x) / sqrt(length(x)) }
+  cldl <- NULL  # Initialize cldl to avoid the global variable note
 
   # Perform summary statistics
   summary_df <- data_summary(df, varname = dependent_var, groupnames = factor_var) %>%
@@ -88,7 +64,7 @@ cedR <- function(df, dependent_var, factor_var, df_file_name, logFile) {
     cat(capture.output(var_test_result), file = logFile, append = TRUE, sep = "\n")
   }
 
-  # Determine the test to use based on normality and equality of variance
+  # Perform Kruskal-Wallis or ANOVA test and assign cldl values
   if (!is.null(shapiro_test_result) && shapiro_test_result$p.value < 0.05 ||
       !is.null(var_test_result) && var_test_result$p.value < 0.05) {
     # Non-parametric test (Kruskal-Wallis + Dunn's Test)
@@ -100,7 +76,7 @@ cedR <- function(df, dependent_var, factor_var, df_file_name, logFile) {
     names(Diff) <- Names
     cld <- multcompLetters(Diff)
 
-    cld_df <- data.frame(factor_var = names(cld$Letters), cldl = cld$Letters, stringsAsFactors = FALSE)
+    cldl <- data.frame(factor_var = names(cld$Letters), cldl = cld$Letters, stringsAsFactors = FALSE)
 
     cat("Kruskal-Wallis Test:\n", file = logFile, append = TRUE)
     cat(capture.output(test), file = logFile, append = TRUE, sep = "\n")
@@ -114,7 +90,7 @@ cedR <- function(df, dependent_var, factor_var, df_file_name, logFile) {
     Tukey <- TukeyHSD(res.aov2)
 
     cld <- multcompLetters4(res.aov2, Tukey)
-    cld_df <- data.frame(factor_var = names(cld[[factor_var]]$Letters), cldl = cld[[factor_var]]$Letters, stringsAsFactors = FALSE)
+    cldl <- data.frame(factor_var = names(cld[[factor_var]]$Letters), cldl = cld[[factor_var]]$Letters, stringsAsFactors = FALSE)
 
     cat("ANOVA Test:\n", file = logFile, append = TRUE)
     cat(capture.output(res.aov2), file = logFile, append = TRUE, sep = "\n")
@@ -124,18 +100,17 @@ cedR <- function(df, dependent_var, factor_var, df_file_name, logFile) {
   }
 
   # Prepare final output
-  colnames(cld_df)[colnames(cld_df) == "factor_var"] <- factor_var
-  summary_df <- merge(summary_df, cld_df, by = factor_var, all = TRUE)
+  colnames(cldl)[colnames(cldl) == "factor_var"] <- factor_var
+  summary_df <- merge(summary_df, cldl, by = factor_var, all = TRUE)
   write.table(summary_df, file = df_file_name, sep = "\t", row.names = FALSE, col.names = TRUE)
 
   # Create and display the plot
-
   plot <- ggplot(summary_df, aes(y = !!sym(dependent_var), x = !!sym(factor_var))) +
     geom_bar(stat = "identity", color = "black", position = position_dodge(), alpha = 0.5) +
     geom_errorbar(aes(ymin = !!sym(dependent_var) -se,
                       ymax = !!sym(dependent_var) +se),
                   width = 0.2, position = position_dodge(0.9)) +
-    geom_text(aes(label = cldl,
+    geom_text(aes(label = !!sym("cldl"),  # Use the renamed column here
                   y = !!sym(dependent_var) +se),
               position = position_dodge(0.9)) +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
@@ -147,4 +122,3 @@ cedR <- function(df, dependent_var, factor_var, df_file_name, logFile) {
 
   return(list(summary_df = summary_df, plot = plot))
 }
-
