@@ -1,17 +1,3 @@
-require(plyr)
-library(car)
-library(FSA)
-library(multcompView)
-library(ggplot2)
-
-
-# cedR: A Package for One-Way Multiple Comparisons
-#
-# This package performs one-way multiple comparison tests,
-# using ANOVA with Tukey's HSD or Kruskal-Wallis with Dunn's test,
-# depending on whether the data meet the necessary assumptions.
-
-
 
 
 cedR <- function(df, dependent_var, factor_var, df_file_name, logFile) {
