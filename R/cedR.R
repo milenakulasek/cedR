@@ -36,6 +36,17 @@ cedR <- function(df, dependent_var, factor_var, df_file_name, logFile) {
   se <- function(x) { sd(x) / sqrt(length(x)) }
   cldl <- NULL  # Initialize cldl to avoid the global variable note
 
+  data_summary <- function(data, varname, groupnames) {
+    summary_func <- function(x, col) {
+      c(mean = mean(x[[col]], na.rm = TRUE),
+        se = se(x[[col]], na.rm = TRUE),
+        sd = sd(x[[col]], na.rm = TRUE))
+    }
+    data_sum <- ddply(data, groupnames, .fun = summary_func, varname)
+    colnames(data_sum)[colnames(data_sum) == "mean"] <- varname  # Ensure renaming only if "mean" exists
+    return(data_sum)
+  }
+
   # Perform summary statistics
   summary_df <- data_summary(df, varname = dependent_var, groupnames = factor_var) %>%
     arrange(desc(get(dependent_var)))
