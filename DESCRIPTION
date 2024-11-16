@@ -16,5 +16,4 @@ Imports:
     FSA,
     multcompView,
     dplyr,
-    rlang,
-    plotrix
+    rlang
